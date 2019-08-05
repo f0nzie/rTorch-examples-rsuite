@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/index.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/reference/rTorch.examples_getLogger.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/articles/demo.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/articles/idx_images_mnist_digits.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/articles/linear_regression_rainfall.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/articles/linear_regression_rainfall_builtins.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/articles/logistic_regression_mnist_digits_idx.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/articles/mnist_fashion_inference.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/articles/png_images_mnist_digits.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/articles/simple_linear_regression.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/f0nzie/rTorch.examples/articles/two_layer_neural_network.html</loc>
+  </url>
+</urlset>
