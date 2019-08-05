@@ -1,12 +1,13 @@
 Package: rTorch.examples
 Type: Package
 Title: What the package does (short line)
-Version: 0.1
+Version: 0.0.1
 Date: 2019-08-05
-Author: msfz751
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Authors@R: c(
+    person("Alfonso R.", "Reyes", role = c("aut", "cre", "cph"), email = "alfonso.reyes@oilgainsanalytics.com")
+    )
 Description: More about what it does (maybe more than one line)
-License: What license is it under?
+License: MIT + file LICENSE
 Imports: logging,
   rTorch
 Suggests: 
@@ -15,3 +16,7 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.5)
+URL: https://github.com/f0nzie/rTorch.examples
