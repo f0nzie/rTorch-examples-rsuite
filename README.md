@@ -41,3 +41,9 @@ devtools::install_github("f0nzie/rTorch.examples")
   - MNIST Fashion images. Inference and Validation
 
 ## References
+
+  - GitHub repository of `rTorch`: <https://github.com/f0nzie/rTorch>
+  - Website for `rTorch`: <https://f0nzie.github.io/rTorch/>
+  - Website for `rTorch.examples`:
+    <https://f0nzie.github.io/rTorch.examples/>
+  - Website for `PyTorch`: <https://pytorch.org/>
