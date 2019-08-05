@@ -3,3 +3,7 @@
 .Rdata
 .Ruserdata
 inst/doc
+
+datasets/
+
+*.ckpt
