@@ -1,0 +1,42 @@
+---
+title: "Linear Algebra with Torch"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{linear_algebra_with_torch}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rTorch)
+```
+
+
+## Scalars
+
+```{r}
+torch$scalar_tensor(2.78654)
+
+torch$scalar_tensor(0L)
+
+torch$scalar_tensor(1L)
+
+torch$scalar_tensor(TRUE)
+
+torch$scalar_tensor(FALSE)
+```
+
+## Vectors
+
+```{r}
+v <- c(0, 1, 2, 3, 4, 5)
+torch$as_tensor(v)
+```
+
