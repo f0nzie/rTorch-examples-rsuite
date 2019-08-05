@@ -7,3 +7,5 @@ inst/doc
 datasets/
 
 *.ckpt
+
+*.pkl
