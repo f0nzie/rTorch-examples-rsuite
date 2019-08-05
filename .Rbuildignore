@@ -1,3 +1,4 @@
 rTorch.examples.Rproj
 ^.*\.Rproj$
 ^\.Rproj\.user$
+datasets/
