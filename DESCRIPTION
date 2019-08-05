@@ -1,0 +1,16 @@
+Package: rTorch.examples
+Type: Package
+Title: What the package does (short line)
+Version: 0.1
+Date: 2019-08-05
+Author: msfz751
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+Imports: logging,
+  rTorch
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
