@@ -2,3 +2,4 @@ rTorch.examples.Rproj
 ^.*\.Rproj$
 ^\.Rproj\.user$
 datasets/
+^README\.Rmd$
