@@ -178,3 +178,137 @@ x + s
 s * (x + y)
 ```
 
+## Multiplying tensors
+
+$$A * B = B * A$$
+
+```{r}
+(x = torch$ones(5L, 4L))
+(y = torch$ones(5L, 4L))
+
+```
+
+```{r}
+(z = 2 * x + 4 * y)
+```
+
+
+```{r}
+x * y == y * x
+```
+
+## Dot product
+
+$$dot(a,b)_{i,j,k,a,b,c} = \sum_m a_{i,j,k,m}b_{a,b,m,c}$$
+
+```{r}
+torch$dot(torch$tensor(c(2, 3)), torch$tensor(c(2, 1)))
+```
+
+```{r}
+a <- np$array(list(list(1, 2), list(3, 4)))
+a
+b <- np$array(list(list(1, 2), list(3, 4)))
+b
+
+np$dot(a, b)
+```
+
+`torch.dot()` treats both a and b as 1D vectors (irrespective of their original shape) and computes their inner product. 
+
+```{r, error=TRUE}
+at <- torch$as_tensor(a)
+bt <- torch$as_tensor(b)
+
+torch$dot(at, bt)
+# at %.*% bt
+```
+
+If we perform the same dot product operation in Python, we get the same error:
+
+
+```{python, error=TRUE}
+import torch
+import numpy as np
+
+a = np.array([[1, 2], [3, 4]])
+a
+b = np.array([[1, 2], [3, 4]])
+b
+
+np.dot(a, b)
+
+at = torch.as_tensor(a)
+bt = torch.as_tensor(b)
+
+at
+bt
+
+torch.dot(at, bt)
+```
+
+
+```{r, error=TRUE}
+a <- torch$Tensor(list(list(1, 2), list(3, 4)))
+b <- torch$Tensor(c(c(1, 2), c(3, 4)))
+c <- torch$Tensor(list(list(11, 12), list(13, 14)))
+
+a
+b
+torch$dot(a, b)
+
+# this is another way of performing dot product in PyTorch
+# a$dot(a)
+```
+
+```{r, error=TRUE}
+o1 <- torch$ones(2L, 2L)
+o2 <- torch$ones(2L, 2L)
+
+o1
+o2
+
+torch$dot(o1, o2)
+o1$dot(o2)
+```
+
+
+```{r}
+# 1D tensors work fine
+r = torch$dot(torch$Tensor(list(4L, 2L, 4L)), torch$Tensor(list(3L, 4L, 1L)))
+r
+```
+
+```{r}
+## mm and matmul seem to address the dot product we are looking for in tensors
+a = torch$randn(2L, 3L)
+b = torch$randn(3L, 4L)
+
+a$mm(b)
+a$matmul(b)
+```
+
+Here is agood explanation: https://stackoverflow.com/a/44525687/5270873
+
+
+## Dot product 
+
+```{r}
+abt <- torch$mm(a, b)$transpose(dim0=0L, dim1=1L)
+abt
+```
+
+```{r}
+at <- a$transpose(dim0=0L, dim1=1L)
+bt <- b$transpose(dim0=0L, dim1=1L)
+
+btat <- torch$matmul(bt, at)
+btat
+```
+
+$$(A B)^T = B^T A^T$$
+
+```{r}
+torch$allclose(abt, btat, rtol=0.0001)
+```
+
