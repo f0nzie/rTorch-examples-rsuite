@@ -291,8 +291,6 @@ a$matmul(b)
 Here is agood explanation: https://stackoverflow.com/a/44525687/5270873
 
 
-## Dot product 
-
 ```{r}
 abt <- torch$mm(a, b)$transpose(dim0=0L, dim1=1L)
 abt
