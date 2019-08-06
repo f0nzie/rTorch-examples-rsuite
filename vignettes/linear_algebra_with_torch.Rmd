@@ -40,3 +40,141 @@ v <- c(0, 1, 2, 3, 4, 5)
 torch$as_tensor(v)
 ```
 
+
+```{r}
+# row-vector
+(mr <- matrix(1:10, nrow=1))
+torch$as_tensor(mr)
+torch$as_tensor(mr)$shape
+```
+
+```{r}
+# column-vector
+(mc <- matrix(1:10, ncol=1))
+torch$as_tensor(mc)
+torch$as_tensor(mc)$shape
+```
+
+## Matrices
+
+```{r}
+(m1 <- matrix(1:24, nrow = 3, byrow = TRUE))
+(t1 <- torch$as_tensor(m1))
+torch$as_tensor(m1)$shape
+torch$as_tensor(m1)$size()
+dim(torch$as_tensor(m1))
+length(torch$as_tensor(m1))
+```
+
+```{r}
+(m2 <- matrix(0:99, ncol = 10))
+(t2 <- torch$as_tensor(m2))
+t2$shape
+dim(torch$as_tensor(m2))
+```
+
+```{r}
+m1[1, 1]
+m2[1, 1]
+```
+
+```{r}
+t1[1, 1]
+t2[1, 1]
+```
+
+## 3D+ tensors
+
+```{r}
+# RGB color image has three axes 
+(img <- torch$rand(3L, 28L, 28L))
+img$shape
+```
+
+```{r}
+img[1, 1, 1]
+img[3, 28, 28]
+```
+
+
+## Transpose of a matrix
+
+```{r}
+(m3 <- matrix(1:25, ncol = 5))
+
+# transpose
+tm3 <- t(m3)
+tm3
+```
+
+```{r}
+(t3 <- torch$as_tensor(m3))
+
+tt3 <- t3$transpose(dim0 = 0L, dim1 = 1L)
+tt3
+```
+
+```{r}
+tm3 == tt3$numpy()   # convert first the tensor to numpy
+```
+
+## Vectors, special case of a matrix
+
+```{r}
+m2 <- matrix(0:99, ncol = 10)
+(t2 <- torch$as_tensor(m2))
+
+# in R
+(v1 <- m2[, 1])
+(v2 <- m2[10, ])
+```
+
+```{r}
+# PyTorch
+
+t2c <- t2[, 1]
+t2r <- t2[10, ]
+
+t2c
+t2r
+```
+
+In vectors, the vector and its transpose are equal.
+
+```{r}
+tt2r <- t2r$transpose(dim0 = 0L, dim1 = 0L)
+tt2r
+```
+
+```{r}
+# a tensor of booleans. is vector equal to its transposed?
+t2r == tt2r
+```
+
+## Tensor addition
+
+```{r}
+(x = torch$ones(5L, 4L))
+(y = torch$ones(5L, 4L))
+
+x + y
+```
+
+$$A + B = B + A$$
+
+```{r}
+x + y == y + x
+```
+
+## Add a scalar to a tensor
+
+```{r}
+s <- 0.5    # scalar
+x + s
+```
+
+```{r}
+# scalar multiplying two tensors
+s * (x + y)
+```
+
