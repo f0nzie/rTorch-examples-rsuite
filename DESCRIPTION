@@ -1,6 +1,6 @@
 Package: rTorch.examples
 Type: Package
-Title: What the package does (short line)
+Title: Provides examples for packages 'rTorch'.
 Version: 0.0.0.9001
 Date: 2019-08-05
 Authors@R: c(
@@ -9,7 +9,8 @@ Authors@R: c(
 Description: More about what it does (maybe more than one line)
 License: MIT + file LICENSE
 Imports: logging,
-  rTorch
+  rTorch,
+  reticulate
 Suggests: 
     knitr,
     rmarkdown,
