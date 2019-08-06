@@ -31,6 +31,7 @@ devtools::install_github("f0nzie/rTorch.examples")
 
 ## Examples included
 
+  - Linear Algebra with Torch
   - Simple Linear Regression
   - Linear Regregression, rainfall
   - Linear Regregression, rainfall. PyTorch builtins
