@@ -4,6 +4,7 @@ pkgdown_sha: ~
 articles:
   demo: demo.html
   idx_images_mnist_digits: idx_images_mnist_digits.html
+  linear_algebra_with_torch: linear_algebra_with_torch.html
   linear_regression_rainfall: linear_regression_rainfall.html
   linear_regression_rainfall_builtins: linear_regression_rainfall_builtins.html
   logistic_regression_mnist_digits_idx: logistic_regression_mnist_digits_idx.html

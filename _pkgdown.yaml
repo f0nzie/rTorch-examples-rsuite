@@ -13,6 +13,8 @@ navbar:
       href: index.html
     - text: "Vignettes"
       menu:
+        - text: Linear Algebra with Torch
+          href: articles/linear_algebra_with_torch.html
         - text: Simple Linear Regression
           href: articles/simple_linear_regression.html
         - text: Linear Regregression, rainfall
