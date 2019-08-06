@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTorch.examples</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
       </span>
     </div>
 
@@ -229,35 +229,35 @@
 <a href="#d-tensors" class="anchor"></a>3D+ tensors</h2>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># RGB color image has three axes </span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">(img &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">rand</span>(3L, 28L, 28L))</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; tensor([[[0.1560, 0.8675, 0.2627,  ..., 0.1192, 0.2695, 0.3217],</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;          [0.4340, 0.7494, 0.7588,  ..., 0.6000, 0.5303, 0.5464],</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;          [0.6310, 0.6415, 0.2828,  ..., 0.9191, 0.4489, 0.4231],</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; tensor([[[0.4920, 0.0248, 0.9115,  ..., 0.9847, 0.6634, 0.8705],</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;          [0.1208, 0.2527, 0.8676,  ..., 0.2648, 0.1660, 0.0724],</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;          [0.9072, 0.4989, 0.6459,  ..., 0.5450, 0.6089, 0.2706],</span></a>
 <a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;          ...,</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;          [0.2456, 0.3031, 0.3205,  ..., 0.9763, 0.3415, 0.4278],</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;          [0.1344, 0.1348, 0.2145,  ..., 0.6710, 0.8728, 0.5918],</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt;          [0.6472, 0.0976, 0.7954,  ..., 0.0871, 0.1947, 0.0512]],</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;          [0.3260, 0.1801, 0.7411,  ..., 0.0582, 0.4318, 0.6760],</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;          [0.1173, 0.9366, 0.7650,  ..., 0.9617, 0.7982, 0.7168],</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt;          [0.8768, 0.9510, 0.7686,  ..., 0.1089, 0.6308, 0.8282]],</span></a>
 <a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;         [[0.7703, 0.2760, 0.5550,  ..., 0.7108, 0.5218, 0.2426],</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;          [0.8481, 0.4112, 0.1984,  ..., 0.5357, 0.0481, 0.2177],</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;          [0.1753, 0.8581, 0.4974,  ..., 0.7481, 0.6171, 0.3904],</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;         [[0.6514, 0.3039, 0.4493,  ..., 0.0246, 0.3952, 0.8266],</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;          [0.6649, 0.6602, 0.8841,  ..., 0.4218, 0.7038, 0.9010],</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;          [0.4447, 0.8759, 0.0993,  ..., 0.9169, 0.1128, 0.7452],</span></a>
 <a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt;          ...,</span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt;          [0.6414, 0.5873, 0.1657,  ..., 0.8931, 0.1076, 0.8455],</span></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt;          [0.5319, 0.5132, 0.7262,  ..., 0.1373, 0.1674, 0.4707],</span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt;          [0.2117, 0.9194, 0.0417,  ..., 0.2957, 0.5038, 0.1440]],</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt;          [0.3098, 0.4675, 0.5892,  ..., 0.6671, 0.5273, 0.5508],</span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt;          [0.4038, 0.9282, 0.7265,  ..., 0.6994, 0.3793, 0.0596],</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt;          [0.2527, 0.5610, 0.9893,  ..., 0.0437, 0.0890, 0.8702]],</span></a>
 <a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt;         [[0.4940, 0.7100, 0.2397,  ..., 0.2473, 0.7781, 0.1485],</span></a>
-<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt;          [0.3416, 0.2597, 0.4819,  ..., 0.2073, 0.8312, 0.9518],</span></a>
-<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">#&gt;          [0.3974, 0.7753, 0.8092,  ..., 0.2661, 0.1660, 0.9134],</span></a>
+<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt;         [[0.9598, 0.9510, 0.7040,  ..., 0.0072, 0.5999, 0.8662],</span></a>
+<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt;          [0.6223, 0.7581, 0.9945,  ..., 0.9419, 0.7821, 0.0715],</span></a>
+<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">#&gt;          [0.2308, 0.2813, 0.5536,  ..., 0.0103, 0.8173, 0.0481],</span></a>
 <a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt;          ...,</span></a>
-<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt;          [0.8690, 0.8933, 0.1457,  ..., 0.5617, 0.5842, 0.0427],</span></a>
-<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt;          [0.1620, 0.2506, 0.9808,  ..., 0.6400, 0.3897, 0.9252],</span></a>
-<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt;          [0.7565, 0.8427, 0.6929,  ..., 0.4002, 0.2147, 0.9175]]])</span></a>
+<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt;          [0.9602, 0.0967, 0.0508,  ..., 0.9151, 0.6835, 0.5957],</span></a>
+<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt;          [0.5006, 0.7613, 0.5489,  ..., 0.5614, 0.1959, 0.7073],</span></a>
+<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt;          [0.1265, 0.1147, 0.3188,  ..., 0.2434, 0.5904, 0.7173]]])</span></a>
 <a class="sourceLine" id="cb10-26" data-line-number="26">img<span class="op">$</span>shape</a>
 <a class="sourceLine" id="cb10-27" data-line-number="27"><span class="co">#&gt; torch.Size([3, 28, 28])</span></a></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">img[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; tensor(0.1560)</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; tensor(0.4920)</span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3">img[<span class="dv">3</span>, <span class="dv">28</span>, <span class="dv">28</span>]</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; tensor(0.9175)</span></a></code></pre></div>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; tensor(0.7173)</span></a></code></pre></div>
 </div>
 <div id="transpose-of-a-matrix" class="section level2">
 <h2 class="hasAnchor">
@@ -388,6 +388,154 @@
 <a class="sourceLine" id="cb22-6" data-line-number="6"><span class="co">#&gt;         [1., 1., 1., 1.],</span></a>
 <a class="sourceLine" id="cb22-7" data-line-number="7"><span class="co">#&gt;         [1., 1., 1., 1.]])</span></a></code></pre></div>
 </div>
+<div id="multiplying-tensors" class="section level2">
+<h2 class="hasAnchor">
+<a href="#multiplying-tensors" class="anchor"></a>Multiplying tensors</h2>
+<p><span class="math display">\[A * B = B * A\]</span></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">(<span class="dt">x =</span> torch<span class="op">$</span><span class="kw">ones</span>(5L, 4L))</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="co">#&gt; tensor([[1., 1., 1., 1.],</span></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="co">#&gt;         [1., 1., 1., 1.],</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="co">#&gt;         [1., 1., 1., 1.],</span></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="co">#&gt;         [1., 1., 1., 1.],</span></a>
+<a class="sourceLine" id="cb23-6" data-line-number="6"><span class="co">#&gt;         [1., 1., 1., 1.]])</span></a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">(<span class="dt">y =</span> torch<span class="op">$</span><span class="kw">ones</span>(5L, 4L))</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8"><span class="co">#&gt; tensor([[1., 1., 1., 1.],</span></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9"><span class="co">#&gt;         [1., 1., 1., 1.],</span></a>
+<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="co">#&gt;         [1., 1., 1., 1.],</span></a>
+<a class="sourceLine" id="cb23-11" data-line-number="11"><span class="co">#&gt;         [1., 1., 1., 1.],</span></a>
+<a class="sourceLine" id="cb23-12" data-line-number="12"><span class="co">#&gt;         [1., 1., 1., 1.]])</span></a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">(<span class="dt">z =</span> <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>y)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="co">#&gt; tensor([[6., 6., 6., 6.],</span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="co">#&gt;         [6., 6., 6., 6.],</span></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="co">#&gt;         [6., 6., 6., 6.],</span></a>
+<a class="sourceLine" id="cb24-5" data-line-number="5"><span class="co">#&gt;         [6., 6., 6., 6.],</span></a>
+<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="co">#&gt;         [6., 6., 6., 6.]])</span></a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">x <span class="op">*</span><span class="st"> </span>y <span class="op">==</span><span class="st"> </span>y <span class="op">*</span><span class="st"> </span>x</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="co">#&gt; tensor([[True, True, True, True],</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="co">#&gt;         [True, True, True, True],</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co">#&gt;         [True, True, True, True],</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="co">#&gt;         [True, True, True, True],</span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#&gt;         [True, True, True, True]], dtype=torch.bool)</span></a></code></pre></div>
+</div>
+<div id="dot-product" class="section level2">
+<h2 class="hasAnchor">
+<a href="#dot-product" class="anchor"></a>Dot product</h2>
+<p><span class="math display">\[dot(a,b)_{i,j,k,a,b,c} = \sum_m a_{i,j,k,m}b_{a,b,m,c}\]</span></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">dot</a></span>(torch<span class="op">$</span><span class="kw">tensor</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">3</span>)), torch<span class="op">$</span><span class="kw">tensor</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>)))</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="co">#&gt; tensor(7.)</span></a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">a &lt;-<span class="st"> </span>np<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">3</span>, <span class="dv">4</span>)))</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">a</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="co">#&gt;      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">#&gt; [1,]    1    2</span></a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="co">#&gt; [2,]    3    4</span></a>
+<a class="sourceLine" id="cb27-6" data-line-number="6">b &lt;-<span class="st"> </span>np<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">3</span>, <span class="dv">4</span>)))</a>
+<a class="sourceLine" id="cb27-7" data-line-number="7">b</a>
+<a class="sourceLine" id="cb27-8" data-line-number="8"><span class="co">#&gt;      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb27-9" data-line-number="9"><span class="co">#&gt; [1,]    1    2</span></a>
+<a class="sourceLine" id="cb27-10" data-line-number="10"><span class="co">#&gt; [2,]    3    4</span></a>
+<a class="sourceLine" id="cb27-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb27-12" data-line-number="12">np<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">dot</a></span>(a, b)</a>
+<a class="sourceLine" id="cb27-13" data-line-number="13"><span class="co">#&gt;      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb27-14" data-line-number="14"><span class="co">#&gt; [1,]    7   10</span></a>
+<a class="sourceLine" id="cb27-15" data-line-number="15"><span class="co">#&gt; [2,]   15   22</span></a></code></pre></div>
+<p><code>torch.dot()</code> treats both a and b as 1D vectors (irrespective of their original shape) and computes their inner product.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">at &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">as_tensor</span>(a)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">bt &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">as_tensor</span>(b)</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">dot</a></span>(at, bt)</a>
+<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="co">#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): RuntimeError: dot: Expected 1-D argument self, but got 2-D</span></a>
+<a class="sourceLine" id="cb28-6" data-line-number="6"><span class="co"># at %.*% bt</span></a></code></pre></div>
+<p>If we perform the same dot product operation in Python, we get the same error:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="im">import</span> torch</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="im">import</span> numpy <span class="im">as</span> np</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">a <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]])</a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">a</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="co">#&gt; array([[1, 2],</span></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7"><span class="co">#&gt;        [3, 4]])</span></a>
+<a class="sourceLine" id="cb29-8" data-line-number="8">b <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]])</a>
+<a class="sourceLine" id="cb29-9" data-line-number="9">b</a>
+<a class="sourceLine" id="cb29-10" data-line-number="10"><span class="co">#&gt; array([[1, 2],</span></a>
+<a class="sourceLine" id="cb29-11" data-line-number="11"><span class="co">#&gt;        [3, 4]])</span></a>
+<a class="sourceLine" id="cb29-12" data-line-number="12">np.dot(a, b)</a>
+<a class="sourceLine" id="cb29-13" data-line-number="13"><span class="co">#&gt; array([[ 7, 10],</span></a>
+<a class="sourceLine" id="cb29-14" data-line-number="14"><span class="co">#&gt;        [15, 22]])</span></a>
+<a class="sourceLine" id="cb29-15" data-line-number="15">at <span class="op">=</span> torch.as_tensor(a)</a>
+<a class="sourceLine" id="cb29-16" data-line-number="16">bt <span class="op">=</span> torch.as_tensor(b)</a>
+<a class="sourceLine" id="cb29-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb29-18" data-line-number="18">at</a>
+<a class="sourceLine" id="cb29-19" data-line-number="19"><span class="co">#&gt; tensor([[1, 2],</span></a>
+<a class="sourceLine" id="cb29-20" data-line-number="20"><span class="co">#&gt;         [3, 4]])</span></a>
+<a class="sourceLine" id="cb29-21" data-line-number="21">bt</a>
+<a class="sourceLine" id="cb29-22" data-line-number="22"><span class="co">#&gt; tensor([[1, 2],</span></a>
+<a class="sourceLine" id="cb29-23" data-line-number="23"><span class="co">#&gt;         [3, 4]])</span></a>
+<a class="sourceLine" id="cb29-24" data-line-number="24">torch.dot(at, bt)</a>
+<a class="sourceLine" id="cb29-25" data-line-number="25"><span class="co">#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): RuntimeError: dot: Expected 1-D argument self, but got 2-D</span></a>
+<a class="sourceLine" id="cb29-26" data-line-number="26"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb29-27" data-line-number="27"><span class="co">#&gt; Detailed traceback: </span></a>
+<a class="sourceLine" id="cb29-28" data-line-number="28"><span class="co">#&gt;   File "&lt;string&gt;", line 1, in &lt;module&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">a &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">Tensor</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">3</span>, <span class="dv">4</span>)))</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">b &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">Tensor</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>, <span class="dv">4</span>)))</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">c &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">Tensor</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">11</span>, <span class="dv">12</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">13</span>, <span class="dv">14</span>)))</a>
+<a class="sourceLine" id="cb30-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">a</a>
+<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="co">#&gt; tensor([[1., 2.],</span></a>
+<a class="sourceLine" id="cb30-7" data-line-number="7"><span class="co">#&gt;         [3., 4.]])</span></a>
+<a class="sourceLine" id="cb30-8" data-line-number="8">b</a>
+<a class="sourceLine" id="cb30-9" data-line-number="9"><span class="co">#&gt; tensor([1., 2., 3., 4.])</span></a>
+<a class="sourceLine" id="cb30-10" data-line-number="10">torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">dot</a></span>(a, b)</a>
+<a class="sourceLine" id="cb30-11" data-line-number="11"><span class="co">#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): RuntimeError: dot: Expected 1-D argument self, but got 2-D</span></a>
+<a class="sourceLine" id="cb30-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb30-13" data-line-number="13"><span class="co"># this is another way of performing dot product in PyTorch</span></a>
+<a class="sourceLine" id="cb30-14" data-line-number="14"><span class="co"># a$dot(a)</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">o1 &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">ones</span>(2L, 2L)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">o2 &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">ones</span>(2L, 2L)</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">o1</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5"><span class="co">#&gt; tensor([[1., 1.],</span></a>
+<a class="sourceLine" id="cb31-6" data-line-number="6"><span class="co">#&gt;         [1., 1.]])</span></a>
+<a class="sourceLine" id="cb31-7" data-line-number="7">o2</a>
+<a class="sourceLine" id="cb31-8" data-line-number="8"><span class="co">#&gt; tensor([[1., 1.],</span></a>
+<a class="sourceLine" id="cb31-9" data-line-number="9"><span class="co">#&gt;         [1., 1.]])</span></a>
+<a class="sourceLine" id="cb31-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb31-11" data-line-number="11">torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">dot</a></span>(o1, o2)</a>
+<a class="sourceLine" id="cb31-12" data-line-number="12"><span class="co">#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): RuntimeError: dot: Expected 1-D argument self, but got 2-D</span></a>
+<a class="sourceLine" id="cb31-13" data-line-number="13">o1<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">dot</a></span>(o2)</a>
+<a class="sourceLine" id="cb31-14" data-line-number="14"><span class="co">#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): RuntimeError: dot: Expected 1-D argument self, but got 2-D</span></a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># 1D tensors work fine</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">r =<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">dot</a></span>(torch<span class="op">$</span><span class="kw">Tensor</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(4L, 2L, 4L)), torch<span class="op">$</span><span class="kw">Tensor</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(3L, 4L, 1L)))</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">r</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="co">#&gt; tensor(24.)</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co">## mm and matmul seem to address the dot product we are looking for in tensors</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">a =<span class="st"> </span>torch<span class="op">$</span><span class="kw">randn</span>(2L, 3L)</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3">b =<span class="st"> </span>torch<span class="op">$</span><span class="kw">randn</span>(3L, 4L)</a>
+<a class="sourceLine" id="cb33-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb33-5" data-line-number="5">a<span class="op">$</span><span class="kw">mm</span>(b)</a>
+<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="co">#&gt; tensor([[-1.3012,  0.0225,  0.9637,  0.3125],</span></a>
+<a class="sourceLine" id="cb33-7" data-line-number="7"><span class="co">#&gt;         [-3.3288, -0.2954,  0.8563,  1.6626]])</span></a>
+<a class="sourceLine" id="cb33-8" data-line-number="8">a<span class="op">$</span><span class="kw">matmul</span>(b)</a>
+<a class="sourceLine" id="cb33-9" data-line-number="9"><span class="co">#&gt; tensor([[-1.3012,  0.0225,  0.9637,  0.3125],</span></a>
+<a class="sourceLine" id="cb33-10" data-line-number="10"><span class="co">#&gt;         [-3.3288, -0.2954,  0.8563,  1.6626]])</span></a></code></pre></div>
+<p>Here is agood explanation: <a href="https://stackoverflow.com/a/44525687/5270873" class="uri">https://stackoverflow.com/a/44525687/5270873</a></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">abt &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">mm</span>(a, b)<span class="op">$</span><span class="kw">transpose</span>(<span class="dt">dim0=</span>0L, <span class="dt">dim1=</span>1L)</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">abt</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="co">#&gt; tensor([[-1.3012, -3.3288],</span></a>
+<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="co">#&gt;         [ 0.0225, -0.2954],</span></a>
+<a class="sourceLine" id="cb34-5" data-line-number="5"><span class="co">#&gt;         [ 0.9637,  0.8563],</span></a>
+<a class="sourceLine" id="cb34-6" data-line-number="6"><span class="co">#&gt;         [ 0.3125,  1.6626]])</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">at &lt;-<span class="st"> </span>a<span class="op">$</span><span class="kw">transpose</span>(<span class="dt">dim0=</span>0L, <span class="dt">dim1=</span>1L)</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">bt &lt;-<span class="st"> </span>b<span class="op">$</span><span class="kw">transpose</span>(<span class="dt">dim0=</span>0L, <span class="dt">dim1=</span>1L)</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb35-4" data-line-number="4">btat &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw">matmul</span>(bt, at)</a>
+<a class="sourceLine" id="cb35-5" data-line-number="5">btat</a>
+<a class="sourceLine" id="cb35-6" data-line-number="6"><span class="co">#&gt; tensor([[-1.3012, -3.3288],</span></a>
+<a class="sourceLine" id="cb35-7" data-line-number="7"><span class="co">#&gt;         [ 0.0225, -0.2954],</span></a>
+<a class="sourceLine" id="cb35-8" data-line-number="8"><span class="co">#&gt;         [ 0.9637,  0.8563],</span></a>
+<a class="sourceLine" id="cb35-9" data-line-number="9"><span class="co">#&gt;         [ 0.3125,  1.6626]])</span></a></code></pre></div>
+<p><span class="math display">\[(A B)^T = B^T A^T\]</span></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">torch<span class="op">$</span><span class="kw">allclose</span>(abt, btat, <span class="dt">rtol=</span><span class="fl">0.0001</span>)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -403,6 +551,8 @@
       <li><a href="#vectors-special-case-of-a-matrix">Vectors, special case of a matrix</a></li>
       <li><a href="#tensor-addition">Tensor addition</a></li>
       <li><a href="#add-a-scalar-to-a-tensor">Add a scalar to a tensor</a></li>
+      <li><a href="#multiplying-tensors">Multiplying tensors</a></li>
+      <li><a href="#dot-product">Dot product</a></li>
       </ul>
 </div>
       </div>
