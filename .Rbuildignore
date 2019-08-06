@@ -3,3 +3,5 @@ rTorch.examples.Rproj
 ^\.Rproj\.user$
 datasets/
 ^README\.Rmd$
+docs/
+^_pkgdown\.yaml$
