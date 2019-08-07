@@ -1,10 +1,5 @@
 .Rproj.user
 .Rhistory
 .Rdata
-.Rbuildignore
 .Ruserdata
-config.txt
 inst/doc
-datasets/
-*.ckpt
-*.pkl
