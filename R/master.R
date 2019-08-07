@@ -16,3 +16,23 @@ source(file.path(script_path, "set_env.R"), chdir = T)
 
 config <- load_config()
 args <- args_parser()
+
+proj_root_path <- file.path(script_path, "..")
+conda_path <- file.path(proj_root_path, "conda")
+
+# Force using local Python environment
+if (.Platform$OS.type == "unix") {
+  reticulate::use_python(python = file.path(conda_path, "bin",
+                                            "python3"), require = TRUE)
+} else if (.Platform$OS.type == "windows") {
+  reticulate::use_python(python = conda_path,
+                         require = TRUE)
+}
+# Find the PyQt libraries under Library/plugins/platforms
+qt_plugins <- file.path(conda_path,
+                        "Library", "plugins", "platforms")
+reticulate::py_run_string("
+import os;
+os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = r.qt_plugins")
+
+pkgdown::build_site(pkg = file.path(script_path, "..", "packages/rTorch.examples"))
