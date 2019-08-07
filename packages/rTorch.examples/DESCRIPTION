@@ -21,3 +21,4 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5)
 URL: https://github.com/f0nzie/rTorch.examples
+SystemRequirements: conda (python=3.7 pytorch-cpu torchvision-cpu matplotlib pandas -c pytorch)
