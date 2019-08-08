@@ -17,7 +17,7 @@ source(file.path(script_path, "set_env.R"), chdir = T)
 config <- load_config()
 args <- args_parser()
 
-proj_root_path <- dirname(file.path(script_path))
+proj_root_path <- file.path(script_path, "..")
 loginfo(proj_root_path)
 conda_path <- file.path(proj_root_path, "conda")
 
