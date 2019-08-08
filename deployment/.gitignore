@@ -1,2 +1,2 @@
-intrepo
-docker_cache
+*
+!.gitignore
