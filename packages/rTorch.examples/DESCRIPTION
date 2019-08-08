@@ -12,7 +12,8 @@ Description: Provides practical examples for the package 'rTorch'. These were
 License: MIT + file LICENSE
 Imports: logging,
   rTorch,
-  reticulate
+  reticulate,
+  data.table
 Suggests: 
     knitr,
     rmarkdown,
