@@ -8,3 +8,4 @@ inst/doc
 datasets/
 *.ckpt
 *.pkl
+conda/
