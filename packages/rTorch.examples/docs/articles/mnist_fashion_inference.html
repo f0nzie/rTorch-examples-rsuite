@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTorch.examples</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
       <h1>mnist_fashion_inference</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/f0nzie/rTorch.examples/blob/master/vignettes/mnist_fashion_inference.Rmd"><code>vignettes/mnist_fashion_inference.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/f0nzie/rTorch.examples/blob/master/../../vignettes/mnist_fashion_inference.Rmd"><code>../../vignettes/mnist_fashion_inference.Rmd</code></a></small>
       <div class="hidden name"><code>mnist_fashion_inference.Rmd</code></div>
 
     </div>
@@ -192,7 +192,7 @@
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co"># get random object from the test_loader</span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8">i_rand =<span class="st"> </span>random<span class="op">$</span><span class="kw">randrange</span>(<span class="dv">0</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/rTorch/topics/reexports">py_len</a></span>(test_loader)<span class="op">-</span><span class="dv">1</span>)   <span class="co"># get a random data point</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9">i_rand</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; [1] 142</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; [1] 138</span></a></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">enum_test_examples =<span class="st"> </span>builtins<span class="op">$</span><span class="kw">enumerate</span>(test_loader)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">enum_test_examples</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; &lt;enumerate&gt;</span></a>
@@ -202,7 +202,7 @@
 <a class="sourceLine" id="cb6-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co"># iter_test_examples[[3]]</span></a>
 <a class="sourceLine" id="cb6-9" data-line-number="9">iter_test_examples[[i_rand]][[<span class="dv">1</span>]]   <span class="co"># index number</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; [1] 141</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; [1] 137</span></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11">iter_test_examples[[i_rand]][[<span class="dv">2</span>]][[<span class="dv">1</span>]]<span class="op">$</span><span class="kw">size</span>()  <span class="co"># image tensor .Size([64,1,28,28])</span></a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; torch.Size([64, 1, 28, 28])</span></a>
 <a class="sourceLine" id="cb6-13" data-line-number="13">iter_test_examples[[i_rand]][[<span class="dv">2</span>]][[<span class="dv">2</span>]]<span class="op">$</span>shape    <span class="co"># labels torch.Size([64])</span></a>
@@ -236,11 +236,11 @@
 <a class="sourceLine" id="cb7-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co"># Look at the most likely classes for the first 10 examples</span></a>
 <a class="sourceLine" id="cb7-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(top_class[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,])</a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; tensor([[4],</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;         [9],</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;         [4],</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt;         [9],</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt;         [9],</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; tensor([[9],</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;         [4],</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;         [9],</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt;         [4],</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt;         [5],</span></a>
 <a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt;         [9],</span></a>
 <a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt;         [9],</span></a>
 <a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt;         [4],</span></a>
@@ -259,13 +259,13 @@
 <a class="sourceLine" id="cb9-2" data-line-number="2">equals</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; tensor([[False],</span></a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;         [False],</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;         [ True],</span></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt;         [False],</span></a>
@@ -279,16 +279,16 @@
 <a class="sourceLine" id="cb9-22" data-line-number="22"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-23" data-line-number="23"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-24" data-line-number="24"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-25" data-line-number="25"><span class="co">#&gt;         [False],</span></a>
+<a class="sourceLine" id="cb9-25" data-line-number="25"><span class="co">#&gt;         [ True],</span></a>
 <a class="sourceLine" id="cb9-26" data-line-number="26"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-27" data-line-number="27"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-28" data-line-number="28"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-29" data-line-number="29"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-30" data-line-number="30"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-31" data-line-number="31"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-32" data-line-number="32"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-28" data-line-number="28"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-29" data-line-number="29"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-30" data-line-number="30"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-31" data-line-number="31"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-32" data-line-number="32"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-33" data-line-number="33"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-34" data-line-number="34"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-34" data-line-number="34"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-35" data-line-number="35"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-36" data-line-number="36"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-37" data-line-number="37"><span class="co">#&gt;         [False],</span></a>
@@ -299,13 +299,13 @@
 <a class="sourceLine" id="cb9-42" data-line-number="42"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-43" data-line-number="43"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-44" data-line-number="44"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-45" data-line-number="45"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-45" data-line-number="45"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-46" data-line-number="46"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-47" data-line-number="47"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-48" data-line-number="48"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-49" data-line-number="49"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-50" data-line-number="50"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-51" data-line-number="51"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-50" data-line-number="50"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-51" data-line-number="51"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-52" data-line-number="52"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-53" data-line-number="53"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-54" data-line-number="54"><span class="co">#&gt;         [False],</span></a>
@@ -318,7 +318,7 @@
 <a class="sourceLine" id="cb9-61" data-line-number="61"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-62" data-line-number="62"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-63" data-line-number="63"><span class="co">#&gt;         [False],</span></a>
-<a class="sourceLine" id="cb9-64" data-line-number="64"><span class="co">#&gt;         [ True],</span></a>
+<a class="sourceLine" id="cb9-64" data-line-number="64"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-65" data-line-number="65"><span class="co">#&gt;         [False],</span></a>
 <a class="sourceLine" id="cb9-66" data-line-number="66"><span class="co">#&gt;         [False]], dtype=torch.bool)</span></a></code></pre></div>
 </div>
@@ -329,7 +329,7 @@
 <p>we’ll need to convert equals to a float tensor. Note that when we take torch.mean it returns a scalar tensor, to get the actual value as a float we’ll need to do <code>accuracy.item()</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">accuracy =<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(equals<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/typeof">type</a></span>(torch<span class="op">$</span>FloatTensor))</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"Accuracy: %f %%"</span>, accuracy<span class="op">$</span><span class="kw">item</span>()<span class="op">*</span><span class="dv">100</span>))</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; Accuracy: 9.375000 %</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; Accuracy: 10.937500 %</span></a></code></pre></div>
 <p>The network is untrained so it’s making random guesses and we should see an accuracy around 10%.</p>
 </div>
 <div id="train-the-model" class="section level3">
