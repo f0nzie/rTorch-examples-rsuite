@@ -116,94 +116,94 @@
     
 <p>Source: <a href="https://medium.com/dsnet/linear-regression-with-pytorch-3dde91d60b50" class="uri">https://medium.com/dsnet/linear-regression-with-pytorch-3dde91d60b50</a></p>
 <p>Original title: <strong>Linear Regression and Gradient Descent from scratch in PyTorch</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rTorch)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rTorch)</a></code></pre></div>
 <div id="select-device" class="section level2">
 <h2 class="hasAnchor">
 <a href="#select-device" class="anchor"></a>Select device</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">torch<span class="op">$</span><span class="kw">manual_seed</span>(<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; &lt;torch._C.Generator&gt;</span></a>
-<a class="sourceLine" id="cb2-3" title="3"></a>
-<a class="sourceLine" id="cb2-4" title="4">device =<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/Devices">device</a></span>(<span class="st">'cpu'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">torch<span class="op">$</span><span class="kw">manual_seed</span>(<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; &lt;torch._C.Generator&gt;</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">device =<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/Devices">device</a></span>(<span class="st">'cpu'</span>)</a></code></pre></div>
 </div>
 <div id="training-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#training-data" class="anchor"></a>Training data</h2>
 <p>The training data can be represented using 2 matrices (inputs and targets), each with one row per observation, and one column per variable.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Input (temp, rainfall, humidity)</span></a>
-<a class="sourceLine" id="cb3-2" title="2">inputs =<span class="st"> </span>np<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">73</span>, <span class="dv">67</span>, <span class="dv">43</span>),</a>
-<a class="sourceLine" id="cb3-3" title="3">                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">91</span>, <span class="dv">88</span>, <span class="dv">64</span>),</a>
-<a class="sourceLine" id="cb3-4" title="4">                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">87</span>, <span class="dv">134</span>, <span class="dv">58</span>),</a>
-<a class="sourceLine" id="cb3-5" title="5">                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">102</span>, <span class="dv">43</span>, <span class="dv">37</span>),</a>
-<a class="sourceLine" id="cb3-6" title="6">                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">69</span>, <span class="dv">96</span>, <span class="dv">70</span>)), <span class="dt">dtype=</span><span class="st">'float32'</span>)</a>
-<a class="sourceLine" id="cb3-7" title="7"></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co"># Targets (apples, oranges)</span></a>
-<a class="sourceLine" id="cb3-9" title="9">targets =<span class="st"> </span>np<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">56</span>, <span class="dv">70</span>), </a>
-<a class="sourceLine" id="cb3-10" title="10">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">81</span>, <span class="dv">101</span>),</a>
-<a class="sourceLine" id="cb3-11" title="11">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">119</span>, <span class="dv">133</span>),</a>
-<a class="sourceLine" id="cb3-12" title="12">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">22</span>, <span class="dv">37</span>), </a>
-<a class="sourceLine" id="cb3-13" title="13">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">103</span>, <span class="dv">119</span>)), <span class="dt">dtype=</span><span class="st">'float32'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Input (temp, rainfall, humidity)</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">inputs =<span class="st"> </span>np<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">73</span>, <span class="dv">67</span>, <span class="dv">43</span>),</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">91</span>, <span class="dv">88</span>, <span class="dv">64</span>),</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">87</span>, <span class="dv">134</span>, <span class="dv">58</span>),</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">102</span>, <span class="dv">43</span>, <span class="dv">37</span>),</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">69</span>, <span class="dv">96</span>, <span class="dv">70</span>)), <span class="dt">dtype=</span><span class="st">'float32'</span>)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># Targets (apples, oranges)</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">targets =<span class="st"> </span>np<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">56</span>, <span class="dv">70</span>), </a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">81</span>, <span class="dv">101</span>),</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">119</span>, <span class="dv">133</span>),</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">22</span>, <span class="dv">37</span>), </a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dv">103</span>, <span class="dv">119</span>)), <span class="dt">dtype=</span><span class="st">'float32'</span>)</a></code></pre></div>
 </div>
 <div id="convert-to-tensors" class="section level2">
 <h2 class="hasAnchor">
 <a href="#convert-to-tensors" class="anchor"></a>Convert to tensors</h2>
 <p>Before we build a model, we need to convert inputs and targets to PyTorch tensors.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># Convert inputs and targets to tensors</span></a>
-<a class="sourceLine" id="cb4-2" title="2">inputs =<span class="st"> </span>torch<span class="op">$</span><span class="kw">from_numpy</span>(inputs)</a>
-<a class="sourceLine" id="cb4-3" title="3">targets =<span class="st"> </span>torch<span class="op">$</span><span class="kw">from_numpy</span>(targets)</a>
-<a class="sourceLine" id="cb4-4" title="4"></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(inputs)</a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; tensor([[ 73.,  67.,  43.],</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;         [ 91.,  88.,  64.],</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;         [ 87., 134.,  58.],</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt;         [102.,  43.,  37.],</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt;         [ 69.,  96.,  70.]], dtype=torch.float64)</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(targets)</a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt; tensor([[ 56.,  70.],</span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt;         [ 81., 101.],</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co">#&gt;         [119., 133.],</span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="co">#&gt;         [ 22.,  37.],</span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="co">#&gt;         [103., 119.]], dtype=torch.float64)</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># Convert inputs and targets to tensors</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">inputs =<span class="st"> </span>torch<span class="op">$</span><span class="kw">from_numpy</span>(inputs)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">targets =<span class="st"> </span>torch<span class="op">$</span><span class="kw">from_numpy</span>(targets)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(inputs)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; tensor([[ 73.,  67.,  43.],</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;         [ 91.,  88.,  64.],</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;         [ 87., 134.,  58.],</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;         [102.,  43.,  37.],</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;         [ 69.,  96.,  70.]], dtype=torch.float64)</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(targets)</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; tensor([[ 56.,  70.],</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;         [ 81., 101.],</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;         [119., 133.],</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;         [ 22.,  37.],</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;         [103., 119.]], dtype=torch.float64)</span></a></code></pre></div>
 <p>The weights and biases can also be represented as matrices, initialized with random values. The first row of <span class="math inline">\(w\)</span> and the first element of <span class="math inline">\(b\)</span> are used to predict the first target variable, i.e. yield for apples, and, similarly, the second for oranges.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># random numbers for weights and biases. Then convert to double()</span></a>
-<a class="sourceLine" id="cb5-2" title="2">torch<span class="op">$</span><span class="kw">set_default_dtype</span>(torch<span class="op">$</span>double)</a>
-<a class="sourceLine" id="cb5-3" title="3"></a>
-<a class="sourceLine" id="cb5-4" title="4">w =<span class="st"> </span>torch<span class="op">$</span><span class="kw">randn</span>(2L, 3L, <span class="dt">requires_grad=</span><span class="ot">TRUE</span>)  <span class="co">#$double()</span></a>
-<a class="sourceLine" id="cb5-5" title="5">b =<span class="st"> </span>torch<span class="op">$</span><span class="kw">randn</span>(2L, <span class="dt">requires_grad=</span><span class="ot">TRUE</span>)      <span class="co">#$double()</span></a>
-<a class="sourceLine" id="cb5-6" title="6"></a>
-<a class="sourceLine" id="cb5-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w)</a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt; tensor([[ 1.5410, -0.2934, -2.1788],</span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt;         [ 0.5684, -1.0845, -1.3986]], requires_grad=True)</span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b)</a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt; tensor([0.4033, 0.8380], requires_grad=True)</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># random numbers for weights and biases. Then convert to double()</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">torch<span class="op">$</span><span class="kw">set_default_dtype</span>(torch<span class="op">$</span>double)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">w =<span class="st"> </span>torch<span class="op">$</span><span class="kw">randn</span>(2L, 3L, <span class="dt">requires_grad=</span><span class="ot">TRUE</span>)  <span class="co">#$double()</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">b =<span class="st"> </span>torch<span class="op">$</span><span class="kw">randn</span>(2L, <span class="dt">requires_grad=</span><span class="ot">TRUE</span>)      <span class="co">#$double()</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w)</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; tensor([[ 1.5410, -0.2934, -2.1788],</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;         [ 0.5684, -1.0845, -1.3986]], requires_grad=True)</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b)</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; tensor([0.4033, 0.8380], requires_grad=True)</span></a></code></pre></div>
 </div>
 <div id="build-the-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#build-the-model" class="anchor"></a>Build the model</h2>
 <p>The model is simply a function that performs a matrix multiplication of the input <span class="math inline">\(x\)</span> and the weights <span class="math inline">\(w\)</span> (transposed), and adds the bias <span class="math inline">\(b\)</span> (replicated for each observation).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">model &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb6-2" title="2">  wt &lt;-<span class="st"> </span>w<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/t">t</a></span>()</a>
-<a class="sourceLine" id="cb6-3" title="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">return</a></span>(torch<span class="op">$</span><span class="kw">add</span>(torch<span class="op">$</span><span class="kw">mm</span>(x, wt), b))</a>
-<a class="sourceLine" id="cb6-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  wt &lt;-<span class="st"> </span>w<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/t">t</a></span>()</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">return</a></span>(torch<span class="op">$</span><span class="kw">add</span>(torch<span class="op">$</span><span class="kw">mm</span>(x, wt), b))</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">}</a></code></pre></div>
 </div>
 <div id="generate-predictions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#generate-predictions" class="anchor"></a>Generate predictions</h2>
 <p>The matrix obtained by passing the input data to the model is a set of predictions for the target variables.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># Generate predictions</span></a>
-<a class="sourceLine" id="cb7-2" title="2">preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(preds)</a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co">#&gt; tensor([[  -0.4516,  -90.4691],</span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt;         [ -24.6303, -132.3828],</span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt;         [ -31.2192, -176.1530],</span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt;         [  64.3523,  -39.5645],</span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt;         [ -73.9524, -161.9560]], grad_fn=&lt;AddBackward0&gt;)</span></a></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># Compare with targets</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(targets)</a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; tensor([[ 56.,  70.],</span></a>
-<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt;         [ 81., 101.],</span></a>
-<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;         [119., 133.],</span></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt;         [ 22.,  37.],</span></a>
-<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt;         [103., 119.]])</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Generate predictions</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(preds)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; tensor([[  -0.4516,  -90.4691],</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;         [ -24.6303, -132.3828],</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;         [ -31.2192, -176.1530],</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;         [  64.3523,  -39.5645],</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;         [ -73.9524, -161.9560]], grad_fn=&lt;AddBackward0&gt;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># Compare with targets</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(targets)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; tensor([[ 56.,  70.],</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;         [ 81., 101.],</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;         [119., 133.],</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;         [ 22.,  37.],</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;         [103., 119.]])</span></a></code></pre></div>
 <p>Because we’ve started with random weights and biases, the model does not a very good job of predicting the target variables.</p>
 </div>
 <div id="loss-function" class="section level2">
@@ -216,39 +216,39 @@
 <li>Calculate the average of the elements in the resulting matrix.</li>
 </ul>
 <p>The result is a single number, known as the mean squared error (MSE).</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># MSE loss</span></a>
-<a class="sourceLine" id="cb9-2" title="2">mse =<span class="st"> </span><span class="cf">function</span>(t1, t2) {</a>
-<a class="sourceLine" id="cb9-3" title="3">  diff &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(t1, t2)</a>
-<a class="sourceLine" id="cb9-4" title="4">  mul &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(torch<span class="op">$</span><span class="kw">mul</span>(diff, diff))</a>
-<a class="sourceLine" id="cb9-5" title="5">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">return</a></span>(torch<span class="op">$</span><span class="kw">div</span>(mul, diff<span class="op">$</span><span class="kw">numel</span>()))</a>
-<a class="sourceLine" id="cb9-6" title="6">}</a></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># Compute loss</span></a>
-<a class="sourceLine" id="cb10-2" title="2">loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(loss)</a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt; tensor(33060.8053, grad_fn=&lt;DivBackward0&gt;)</span></a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="co"># 46194</span></a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="co"># 33060.8070</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># MSE loss</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">mse =<span class="st"> </span><span class="cf">function</span>(t1, t2) {</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">  diff &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(t1, t2)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">  mul &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(torch<span class="op">$</span><span class="kw">mul</span>(diff, diff))</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">return</a></span>(torch<span class="op">$</span><span class="kw">div</span>(mul, diff<span class="op">$</span><span class="kw">numel</span>()))</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># Compute loss</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(loss)</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; tensor(33060.8053, grad_fn=&lt;DivBackward0&gt;)</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co"># 46194</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co"># 33060.8070</span></a></code></pre></div>
 <p>The resulting number is called the <strong>loss</strong>, because it indicates how bad the model is at predicting the target variables. Lower the loss, better the model.</p>
 </div>
 <div id="compute-gradients" class="section level2">
 <h2 class="hasAnchor">
 <a href="#compute-gradients" class="anchor"></a>Compute Gradients</h2>
 <p>With PyTorch, we can automatically compute the gradient or derivative of the loss w.r.t. to the weights and biases, because they have <code>requires_grad</code> set to True.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># Compute gradients</span></a>
-<a class="sourceLine" id="cb11-2" title="2">loss<span class="op">$</span><span class="kw">backward</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># Compute gradients</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">loss<span class="op">$</span><span class="kw">backward</span>()</a></code></pre></div>
 <p>The gradients are stored in the .grad property of the respective tensors.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># Gradients for weights</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w)</a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; tensor([[ 1.5410, -0.2934, -2.1788],</span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="co">#&gt;         [ 0.5684, -1.0845, -1.3986]], requires_grad=True)</span></a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w<span class="op">$</span>grad)</a>
-<a class="sourceLine" id="cb12-6" title="6"><span class="co">#&gt; tensor([[ -6938.4351,  -9674.6757,  -5744.0206],</span></a>
-<a class="sourceLine" id="cb12-7" title="7"><span class="co">#&gt;         [-17408.7861, -20595.9333, -12453.4702]])</span></a></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># Gradients for bias</span></a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b)</a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="co">#&gt; tensor([0.4033, 0.8380], requires_grad=True)</span></a>
-<a class="sourceLine" id="cb13-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b<span class="op">$</span>grad)</a>
-<a class="sourceLine" id="cb13-5" title="5"><span class="co">#&gt; tensor([ -89.3802, -212.1051])</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># Gradients for weights</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w)</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; tensor([[ 1.5410, -0.2934, -2.1788],</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;         [ 0.5684, -1.0845, -1.3986]], requires_grad=True)</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w<span class="op">$</span>grad)</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; tensor([[ -6938.4351,  -9674.6757,  -5744.0206],</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt;         [-17408.7861, -20595.9333, -12453.4702]])</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># Gradients for bias</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b)</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; tensor([0.4033, 0.8380], requires_grad=True)</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b<span class="op">$</span>grad)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; tensor([ -89.3802, -212.1051])</span></a></code></pre></div>
 <p>A key insight from calculus is that the gradient indicates the rate of change of the loss, or the slope of the loss function w.r.t. the weights and biases.</p>
 <ul>
 <li>If a gradient element is positive:
@@ -266,18 +266,18 @@
 </ul>
 <p>The increase or decrease is proportional to the value of the gradient.</p>
 <p>Finally, we’ll reset the gradients to zero before moving forward, because PyTorch accumulates gradients.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># Reset the gradients</span></a>
-<a class="sourceLine" id="cb14-2" title="2">w<span class="op">$</span>grad<span class="op">$</span><span class="kw">zero_</span>()</a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="co">#&gt; tensor([[0., 0., 0.],</span></a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="co">#&gt;         [0., 0., 0.]])</span></a>
-<a class="sourceLine" id="cb14-5" title="5">b<span class="op">$</span>grad<span class="op">$</span><span class="kw">zero_</span>()</a>
-<a class="sourceLine" id="cb14-6" title="6"><span class="co">#&gt; tensor([0., 0.])</span></a>
-<a class="sourceLine" id="cb14-7" title="7"></a>
-<a class="sourceLine" id="cb14-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w<span class="op">$</span>grad)</a>
-<a class="sourceLine" id="cb14-9" title="9"><span class="co">#&gt; tensor([[0., 0., 0.],</span></a>
-<a class="sourceLine" id="cb14-10" title="10"><span class="co">#&gt;         [0., 0., 0.]])</span></a>
-<a class="sourceLine" id="cb14-11" title="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b<span class="op">$</span>grad)</a>
-<a class="sourceLine" id="cb14-12" title="12"><span class="co">#&gt; tensor([0., 0.])</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># Reset the gradients</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">w<span class="op">$</span>grad<span class="op">$</span><span class="kw">zero_</span>()</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; tensor([[0., 0., 0.],</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt;         [0., 0., 0.]])</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">b<span class="op">$</span>grad<span class="op">$</span><span class="kw">zero_</span>()</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; tensor([0., 0.])</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w<span class="op">$</span>grad)</a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; tensor([[0., 0., 0.],</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt;         [0., 0., 0.]])</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b<span class="op">$</span>grad)</a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt; tensor([0., 0.])</span></a></code></pre></div>
 </div>
 <div id="adjust-weights-and-biases-using-gradient-descent" class="section level2">
 <h2 class="hasAnchor">
@@ -290,94 +290,94 @@
 <li>Adjust the weights by subtracting a small quantity proportional to the gradient</li>
 <li>Reset the gradients to zero</li>
 </ol>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># Generate predictions</span></a>
-<a class="sourceLine" id="cb15-2" title="2">preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(preds)</a>
-<a class="sourceLine" id="cb15-4" title="4"><span class="co">#&gt; tensor([[  -0.4516,  -90.4691],</span></a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="co">#&gt;         [ -24.6303, -132.3828],</span></a>
-<a class="sourceLine" id="cb15-6" title="6"><span class="co">#&gt;         [ -31.2192, -176.1530],</span></a>
-<a class="sourceLine" id="cb15-7" title="7"><span class="co">#&gt;         [  64.3523,  -39.5645],</span></a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="co">#&gt;         [ -73.9524, -161.9560]], grad_fn=&lt;AddBackward0&gt;)</span></a></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co"># Calculate the loss</span></a>
-<a class="sourceLine" id="cb16-2" title="2">loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
-<a class="sourceLine" id="cb16-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(loss)</a>
-<a class="sourceLine" id="cb16-4" title="4"><span class="co">#&gt; tensor(33060.8053, grad_fn=&lt;DivBackward0&gt;)</span></a></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># Compute gradients</span></a>
-<a class="sourceLine" id="cb17-2" title="2">loss<span class="op">$</span><span class="kw">backward</span>()</a>
-<a class="sourceLine" id="cb17-3" title="3"></a>
-<a class="sourceLine" id="cb17-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w<span class="op">$</span>grad)</a>
-<a class="sourceLine" id="cb17-5" title="5"><span class="co">#&gt; tensor([[ -6938.4351,  -9674.6757,  -5744.0206],</span></a>
-<a class="sourceLine" id="cb17-6" title="6"><span class="co">#&gt;         [-17408.7861, -20595.9333, -12453.4702]])</span></a>
-<a class="sourceLine" id="cb17-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b<span class="op">$</span>grad)</a>
-<a class="sourceLine" id="cb17-8" title="8"><span class="co">#&gt; tensor([ -89.3802, -212.1051])</span></a></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="co"># Adjust weights and reset gradients</span></a>
-<a class="sourceLine" id="cb18-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(torch<span class="op">$</span><span class="kw">no_grad</span>(), {</a>
-<a class="sourceLine" id="cb18-3" title="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w); <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b)    <span class="co"># requires_grad attribute remains</span></a>
-<a class="sourceLine" id="cb18-4" title="4">  w<span class="op">$</span>data &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(w<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">mul</span>(w<span class="op">$</span>grad<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">scalar_tensor</span>(<span class="fl">1e-5</span>)))</a>
-<a class="sourceLine" id="cb18-5" title="5">  b<span class="op">$</span>data &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(b<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">mul</span>(b<span class="op">$</span>grad<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">scalar_tensor</span>(<span class="fl">1e-5</span>)))</a>
-<a class="sourceLine" id="cb18-6" title="6"></a>
-<a class="sourceLine" id="cb18-7" title="7">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w<span class="op">$</span>grad<span class="op">$</span>data<span class="op">$</span><span class="kw">zero_</span>())</a>
-<a class="sourceLine" id="cb18-8" title="8">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b<span class="op">$</span>grad<span class="op">$</span>data<span class="op">$</span><span class="kw">zero_</span>())</a>
-<a class="sourceLine" id="cb18-9" title="9">})</a>
-<a class="sourceLine" id="cb18-10" title="10"><span class="co">#&gt; tensor([[ 1.5410, -0.2934, -2.1788],</span></a>
-<a class="sourceLine" id="cb18-11" title="11"><span class="co">#&gt;         [ 0.5684, -1.0845, -1.3986]], requires_grad=True)</span></a>
-<a class="sourceLine" id="cb18-12" title="12"><span class="co">#&gt; tensor([0.4033, 0.8380], requires_grad=True)</span></a>
-<a class="sourceLine" id="cb18-13" title="13"><span class="co">#&gt; tensor([[0., 0., 0.],</span></a>
-<a class="sourceLine" id="cb18-14" title="14"><span class="co">#&gt;         [0., 0., 0.]])</span></a>
-<a class="sourceLine" id="cb18-15" title="15"><span class="co">#&gt; tensor([0., 0.])</span></a>
-<a class="sourceLine" id="cb18-16" title="16"></a>
-<a class="sourceLine" id="cb18-17" title="17"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w)</a>
-<a class="sourceLine" id="cb18-18" title="18"><span class="co">#&gt; tensor([[ 1.6104, -0.1967, -2.1213],</span></a>
-<a class="sourceLine" id="cb18-19" title="19"><span class="co">#&gt;         [ 0.7425, -0.8786, -1.2741]], requires_grad=True)</span></a>
-<a class="sourceLine" id="cb18-20" title="20"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b)</a>
-<a class="sourceLine" id="cb18-21" title="21"><span class="co">#&gt; tensor([0.4042, 0.8401], requires_grad=True)</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># Generate predictions</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(preds)</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt; tensor([[  -0.4516,  -90.4691],</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt;         [ -24.6303, -132.3828],</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt;         [ -31.2192, -176.1530],</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt;         [  64.3523,  -39.5645],</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt;         [ -73.9524, -161.9560]], grad_fn=&lt;AddBackward0&gt;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># Calculate the loss</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(loss)</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; tensor(33060.8053, grad_fn=&lt;DivBackward0&gt;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># Compute gradients</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">loss<span class="op">$</span><span class="kw">backward</span>()</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w<span class="op">$</span>grad)</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt; tensor([[ -6938.4351,  -9674.6757,  -5744.0206],</span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co">#&gt;         [-17408.7861, -20595.9333, -12453.4702]])</span></a>
+<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b<span class="op">$</span>grad)</a>
+<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt; tensor([ -89.3802, -212.1051])</span></a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># Adjust weights and reset gradients</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(torch<span class="op">$</span><span class="kw">no_grad</span>(), {</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w); <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b)    <span class="co"># requires_grad attribute remains</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">  w<span class="op">$</span>data &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(w<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">mul</span>(w<span class="op">$</span>grad<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">scalar_tensor</span>(<span class="fl">1e-5</span>)))</a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">  b<span class="op">$</span>data &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(b<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">mul</span>(b<span class="op">$</span>grad<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">scalar_tensor</span>(<span class="fl">1e-5</span>)))</a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w<span class="op">$</span>grad<span class="op">$</span>data<span class="op">$</span><span class="kw">zero_</span>())</a>
+<a class="sourceLine" id="cb18-8" data-line-number="8">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b<span class="op">$</span>grad<span class="op">$</span>data<span class="op">$</span><span class="kw">zero_</span>())</a>
+<a class="sourceLine" id="cb18-9" data-line-number="9">})</a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt; tensor([[ 1.5410, -0.2934, -2.1788],</span></a>
+<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt;         [ 0.5684, -1.0845, -1.3986]], requires_grad=True)</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt; tensor([0.4033, 0.8380], requires_grad=True)</span></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt; tensor([[0., 0., 0.],</span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt;         [0., 0., 0.]])</span></a>
+<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#&gt; tensor([0., 0.])</span></a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(w)</a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt; tensor([[ 1.6104, -0.1967, -2.1213],</span></a>
+<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt;         [ 0.7425, -0.8786, -1.2741]], requires_grad=True)</span></a>
+<a class="sourceLine" id="cb18-20" data-line-number="20"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(b)</a>
+<a class="sourceLine" id="cb18-21" data-line-number="21"><span class="co">#&gt; tensor([0.4042, 0.8401], requires_grad=True)</span></a></code></pre></div>
 <p>With the new weights and biases, the model should have a lower loss.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># Calculate loss</span></a>
-<a class="sourceLine" id="cb19-2" title="2">preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
-<a class="sourceLine" id="cb19-3" title="3">loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
-<a class="sourceLine" id="cb19-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(loss)</a>
-<a class="sourceLine" id="cb19-5" title="5"><span class="co">#&gt; tensor(23432.4894, grad_fn=&lt;DivBackward0&gt;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># Calculate loss</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(loss)</a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">#&gt; tensor(23432.4894, grad_fn=&lt;DivBackward0&gt;)</span></a></code></pre></div>
 </div>
 <div id="train-for-multiple-epochs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#train-for-multiple-epochs" class="anchor"></a>Train for multiple epochs</h2>
 <p>To reduce the loss further, we repeat the process of adjusting the weights and biases using the gradients multiple times. Each iteration is called an <strong>epoch</strong>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># Running all together</span></a>
-<a class="sourceLine" id="cb20-2" title="2"><span class="co"># Adjust weights and reset gradients</span></a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {</a>
-<a class="sourceLine" id="cb20-4" title="4">  preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
-<a class="sourceLine" id="cb20-5" title="5">  loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
-<a class="sourceLine" id="cb20-6" title="6">  loss<span class="op">$</span><span class="kw">backward</span>()</a>
-<a class="sourceLine" id="cb20-7" title="7">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(torch<span class="op">$</span><span class="kw">no_grad</span>(), {</a>
-<a class="sourceLine" id="cb20-8" title="8">    w<span class="op">$</span>data &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(w<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">mul</span>(w<span class="op">$</span>grad, torch<span class="op">$</span><span class="kw">scalar_tensor</span>(<span class="fl">1e-5</span>)))</a>
-<a class="sourceLine" id="cb20-9" title="9">    b<span class="op">$</span>data &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(b<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">mul</span>(b<span class="op">$</span>grad, torch<span class="op">$</span><span class="kw">scalar_tensor</span>(<span class="fl">1e-5</span>)))</a>
-<a class="sourceLine" id="cb20-10" title="10">    </a>
-<a class="sourceLine" id="cb20-11" title="11">    w<span class="op">$</span>grad<span class="op">$</span><span class="kw">zero_</span>()</a>
-<a class="sourceLine" id="cb20-12" title="12">    b<span class="op">$</span>grad<span class="op">$</span><span class="kw">zero_</span>()</a>
-<a class="sourceLine" id="cb20-13" title="13">  })</a>
-<a class="sourceLine" id="cb20-14" title="14">}</a>
-<a class="sourceLine" id="cb20-15" title="15"></a>
-<a class="sourceLine" id="cb20-16" title="16"><span class="co"># Calculate loss</span></a>
-<a class="sourceLine" id="cb20-17" title="17">preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
-<a class="sourceLine" id="cb20-18" title="18">loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
-<a class="sourceLine" id="cb20-19" title="19"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(loss)</a>
-<a class="sourceLine" id="cb20-20" title="20"><span class="co">#&gt; tensor(1258.0216, grad_fn=&lt;DivBackward0&gt;)</span></a>
-<a class="sourceLine" id="cb20-21" title="21"></a>
-<a class="sourceLine" id="cb20-22" title="22"><span class="co"># predictions</span></a>
-<a class="sourceLine" id="cb20-23" title="23">preds</a>
-<a class="sourceLine" id="cb20-24" title="24"><span class="co">#&gt; tensor([[ 69.2462,  80.2082],</span></a>
-<a class="sourceLine" id="cb20-25" title="25"><span class="co">#&gt;         [ 73.7183,  97.2052],</span></a>
-<a class="sourceLine" id="cb20-26" title="26"><span class="co">#&gt;         [118.5780, 124.9272],</span></a>
-<a class="sourceLine" id="cb20-27" title="27"><span class="co">#&gt;         [ 89.2282,  92.7052],</span></a>
-<a class="sourceLine" id="cb20-28" title="28"><span class="co">#&gt;         [ 47.4648,  80.7782]], grad_fn=&lt;AddBackward0&gt;)</span></a>
-<a class="sourceLine" id="cb20-29" title="29"></a>
-<a class="sourceLine" id="cb20-30" title="30"><span class="co"># Targets</span></a>
-<a class="sourceLine" id="cb20-31" title="31">targets</a>
-<a class="sourceLine" id="cb20-32" title="32"><span class="co">#&gt; tensor([[ 56.,  70.],</span></a>
-<a class="sourceLine" id="cb20-33" title="33"><span class="co">#&gt;         [ 81., 101.],</span></a>
-<a class="sourceLine" id="cb20-34" title="34"><span class="co">#&gt;         [119., 133.],</span></a>
-<a class="sourceLine" id="cb20-35" title="35"><span class="co">#&gt;         [ 22.,  37.],</span></a>
-<a class="sourceLine" id="cb20-36" title="36"><span class="co">#&gt;         [103., 119.]])</span></a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># Running all together</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co"># Adjust weights and reset gradients</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">  preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">  loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">  loss<span class="op">$</span><span class="kw">backward</span>()</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(torch<span class="op">$</span><span class="kw">no_grad</span>(), {</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">    w<span class="op">$</span>data &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(w<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">mul</span>(w<span class="op">$</span>grad, torch<span class="op">$</span><span class="kw">scalar_tensor</span>(<span class="fl">1e-5</span>)))</a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">    b<span class="op">$</span>data &lt;-<span class="st"> </span>torch<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(b<span class="op">$</span>data, torch<span class="op">$</span><span class="kw">mul</span>(b<span class="op">$</span>grad, torch<span class="op">$</span><span class="kw">scalar_tensor</span>(<span class="fl">1e-5</span>)))</a>
+<a class="sourceLine" id="cb20-10" data-line-number="10">    </a>
+<a class="sourceLine" id="cb20-11" data-line-number="11">    w<span class="op">$</span>grad<span class="op">$</span><span class="kw">zero_</span>()</a>
+<a class="sourceLine" id="cb20-12" data-line-number="12">    b<span class="op">$</span>grad<span class="op">$</span><span class="kw">zero_</span>()</a>
+<a class="sourceLine" id="cb20-13" data-line-number="13">  })</a>
+<a class="sourceLine" id="cb20-14" data-line-number="14">}</a>
+<a class="sourceLine" id="cb20-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb20-16" data-line-number="16"><span class="co"># Calculate loss</span></a>
+<a class="sourceLine" id="cb20-17" data-line-number="17">preds =<span class="st"> </span><span class="kw">model</span>(inputs)</a>
+<a class="sourceLine" id="cb20-18" data-line-number="18">loss =<span class="st"> </span><span class="kw">mse</span>(preds, targets)</a>
+<a class="sourceLine" id="cb20-19" data-line-number="19"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(loss)</a>
+<a class="sourceLine" id="cb20-20" data-line-number="20"><span class="co">#&gt; tensor(1258.0216, grad_fn=&lt;DivBackward0&gt;)</span></a>
+<a class="sourceLine" id="cb20-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb20-22" data-line-number="22"><span class="co"># predictions</span></a>
+<a class="sourceLine" id="cb20-23" data-line-number="23">preds</a>
+<a class="sourceLine" id="cb20-24" data-line-number="24"><span class="co">#&gt; tensor([[ 69.2462,  80.2082],</span></a>
+<a class="sourceLine" id="cb20-25" data-line-number="25"><span class="co">#&gt;         [ 73.7183,  97.2052],</span></a>
+<a class="sourceLine" id="cb20-26" data-line-number="26"><span class="co">#&gt;         [118.5780, 124.9272],</span></a>
+<a class="sourceLine" id="cb20-27" data-line-number="27"><span class="co">#&gt;         [ 89.2282,  92.7052],</span></a>
+<a class="sourceLine" id="cb20-28" data-line-number="28"><span class="co">#&gt;         [ 47.4648,  80.7782]], grad_fn=&lt;AddBackward0&gt;)</span></a>
+<a class="sourceLine" id="cb20-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb20-30" data-line-number="30"><span class="co"># Targets</span></a>
+<a class="sourceLine" id="cb20-31" data-line-number="31">targets</a>
+<a class="sourceLine" id="cb20-32" data-line-number="32"><span class="co">#&gt; tensor([[ 56.,  70.],</span></a>
+<a class="sourceLine" id="cb20-33" data-line-number="33"><span class="co">#&gt;         [ 81., 101.],</span></a>
+<a class="sourceLine" id="cb20-34" data-line-number="34"><span class="co">#&gt;         [119., 133.],</span></a>
+<a class="sourceLine" id="cb20-35" data-line-number="35"><span class="co">#&gt;         [ 22.,  37.],</span></a>
+<a class="sourceLine" id="cb20-36" data-line-number="36"><span class="co">#&gt;         [103., 119.]])</span></a></code></pre></div>
 </div>
   </div>
 

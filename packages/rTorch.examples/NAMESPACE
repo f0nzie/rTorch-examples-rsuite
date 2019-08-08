@@ -2,6 +2,3 @@
 
 export(rTorch.examples_getLogger)
 import(logging)
-
-import(rTorch)
-import(reticulate)
