@@ -6,7 +6,9 @@ Date: 2019-08-05
 Authors@R: c(
     person("Alfonso R.", "Reyes", role = c("aut", "cre", "cph"), email = "alfonso.reyes@oilgainsanalytics.com")
     )
-Description: More about what it does (maybe more than one line)
+Description: Provides practical examples for the package 'rTorch'. These were 
+    originally vignettes in 'rTorch' but were moved out here to alleviate
+    the development.
 License: MIT + file LICENSE
 Imports: logging,
   rTorch,
