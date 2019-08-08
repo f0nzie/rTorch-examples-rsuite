@@ -1,7 +1,7 @@
 Package: rTorch.examples
 Type: Package
 Title: Provides examples for packages 'rTorch'.
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Date: 2019-08-05
 Authors@R: c(
     person("Alfonso R.", "Reyes", role = c("aut", "cre", "cph"), email = "alfonso.reyes@oilgainsanalytics.com")
