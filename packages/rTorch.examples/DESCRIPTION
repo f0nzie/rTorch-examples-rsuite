@@ -1,16 +1,19 @@
 Package: rTorch.examples
 Type: Package
-Title: Provides examples for packages 'rTorch'.
-Version: 0.0.0.9001
+Title: Provides examples for packages 'rTorch'
+Version: 0.0.0.9002
 Date: 2019-08-05
 Authors@R: c(
     person("Alfonso R.", "Reyes", role = c("aut", "cre", "cph"), email = "alfonso.reyes@oilgainsanalytics.com")
     )
-Description: More about what it does (maybe more than one line)
+Description: Provides practical examples for the package 'rTorch'. These were 
+    originally vignettes in 'rTorch' but were moved out here to alleviate
+    the development.
 License: MIT + file LICENSE
 Imports: logging,
   rTorch,
-  reticulate
+  reticulate,
+  data.table
 Suggests: 
     knitr,
     rmarkdown,
@@ -21,3 +24,4 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5)
 URL: https://github.com/f0nzie/rTorch.examples
+SystemRequirements: conda (python=3.7 pytorch-cpu torchvision-cpu matplotlib pandas -c pytorch)
